@@ -1,5 +1,9 @@
 app: Zoom
 
+app_info:
+    name: zoom
+    version: 2.3.5
+
 ingredients:
   dist: xenial
   sources:
