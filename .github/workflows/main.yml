@@ -11,15 +11,18 @@ jobs:
   AppImage:
     runs-on: ubuntu-latest
     steps:
+    - name: checkout repo
+      uses: actions/checkout@v4
     - name: Create AppImage
       run: |
            sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get -y install desktop-file-utils
            sudo apt-get update && sudo apt-get -y install xdg-desktop-portal xdg-desktop-portal-gnome
-           wget "https://raw.githubusercontent.com/AppImage/pkg2appimage/master/pkg2appimage"
-           bash -ex pkg2appimage Zoom
+           wget -c $(wget -q https://api.github.com/repos/AppImageCommunity/pkg2appimage/releases -O - | grep "pkg2appimage-.*-x86_64.AppImage" | grep browser_download_url | head -n 1 | cut -d '"' -f 4)
+           chmod +x ./pkg2appimage-*.AppImage
+           ./pkg2appimage-*.AppImage zoom.yml
+           
     - name: Release
       uses: marvinpinto/action-automatic-releases@latest
-      if: always()
       with:
         title: AppImage
         automatic_release_tag: stable
