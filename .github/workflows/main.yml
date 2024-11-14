@@ -11,11 +11,12 @@ on:
       
 jobs:
   AppImage:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
     - name: Create AppImage
       run: |
-           sudo apt-get -y install desktop-file-utils
+           sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get -y install desktop-file-utils
+           sudo apt-get update && sudo apt-get -y install xdg-desktop-portal xdg-desktop-portal-gnome
            wget "https://raw.githubusercontent.com/AppImage/pkg2appimage/master/pkg2appimage"
            bash -ex pkg2appimage Zoom
     - name: Release
