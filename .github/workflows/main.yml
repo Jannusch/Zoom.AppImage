@@ -19,7 +19,7 @@ jobs:
            bash -ex pkg2appimage Zoom
     - name: Release
       uses: marvinpinto/action-automatic-releases@latest
-      if: ever()
+      if: always()
       with:
         title: AppImage
         automatic_release_tag: stable
